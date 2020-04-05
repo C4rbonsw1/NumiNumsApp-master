@@ -22,3 +22,16 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.img-thumb {
+    height: 5vh;
+}
+
+.table-home {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.td {
+    padding:15px;
+}
