@@ -1,0 +1,33 @@
+﻿@model NumiNumsApp.Models.Product
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<p>
+    <img alt="@Model.ImagePath"
+         src="@Model.ImagePath" />
+</p>
+<div id="album-details">
+    <p>
+        <em>Item:</em>
+        @Model.Name
+    </p>
+    <p>
+        <em>Id:</em>
+        @Model.ProductId
+    </p>
+    <p>
+        <em>Price:</em>
+        @String.Format("{0:F}",Model.Price)
+    </p>
+    <p class="button">
+        @Html.ActionLink("Add tocart", "AddToCart","ShoppingCart", new { id = Model.ProductId }, "")
+    </p>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ProductId }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>
