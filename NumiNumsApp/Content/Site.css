@@ -35,3 +35,8 @@ textarea {
 .td {
     padding:15px;
 }
+
+.button-align {
+    display: block;
+    margin-top: 5vh;
+}

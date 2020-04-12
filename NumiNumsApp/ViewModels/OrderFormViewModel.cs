@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
+﻿using System.Collections.Generic;
 using NumiNumsApp.Models;
 
 namespace NumiNumsApp.ViewModels
@@ -11,5 +8,6 @@ namespace NumiNumsApp.ViewModels
         public List<Cart> CartItems { get; set; }
         public decimal CartTotal { get; set; }
         public Order Order { get; set; }
+
     }
 }

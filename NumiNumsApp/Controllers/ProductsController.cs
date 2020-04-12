@@ -8,6 +8,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using NumiNumsApp.Models;
+using NumiNumsApp.ViewModels;
 
 namespace NumiNumsApp.Controllers
 {
@@ -18,7 +19,10 @@ namespace NumiNumsApp.Controllers
         // GET: Products
         public ActionResult Index()
         {
-            return View(db.Products.ToList());
+
+            var product = db.Products.ToList();
+            product = db.Products.Include(x => x.ProductVType).ToList();
+            return View(product);
         }
 
         // GET: Products/Details/5
@@ -39,7 +43,15 @@ namespace NumiNumsApp.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
-            return View();
+            ProductVM prodTypeList = new ProductVM();
+
+            prodTypeList.ListProductType = db.ProductTypes.Select(c => new SelectListItem
+            {
+                Value = c.ProductTypeId.ToString(),
+                Text = c.Name,
+                Selected = c.ProductTypeId == c.ProductTypeId
+            });
+            return View(prodTypeList);
         }
 
         // POST: Products/Create
@@ -47,8 +59,9 @@ namespace NumiNumsApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ProductId,Name,Description,Price,ImagePath")] Product product, HttpPostedFileBase file)
+        public ActionResult Create([Bind(Include = "Product, File, ProductType, ListProductType")] ProductVM productVM, HttpPostedFileBase file)
         {
+            ProductVM viewModel = new ProductVM();
             if (ModelState.IsValid)
             {
                    string savePath = Path.Combine(Server.MapPath("~/Content/Images"), Path.GetFileName(file.FileName));
@@ -62,14 +75,16 @@ namespace NumiNumsApp.Controllers
                    {
                        ViewBag.SuccessMessage += string.Format("Uploaded!<br />");
                    }
-                   product.ImagePath = urlPath;
+                productVM.Product.ImagePath = urlPath;
 
-                db.Products.Add(product);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                var prodTypeInDb = db.ProductTypes.Where(x => x.ProductTypeId == productVM.ProductType.ProductTypeId).SingleOrDefault();
+                productVM.Product.ProductVType = prodTypeInDb;
+
+                 db.Products.Add(productVM.Product);
+                 db.SaveChanges();
+                 return RedirectToAction("Index");
             }
-
-            return View(product);
+            return View(viewModel);
         }
 
         // GET: Products/Edit/5
@@ -84,7 +99,17 @@ namespace NumiNumsApp.Controllers
             {
                 return HttpNotFound();
             }
-            return View(product);
+            ProductVM prodTypeList = new ProductVM();
+            prodTypeList.Product = db.Products.Include(x => x.ProductVType).ToList().Single(x => x.ProductId == id);
+
+            prodTypeList.ListProductType = db.ProductTypes.Select(c => new SelectListItem
+            {
+                Value = c.ProductTypeId.ToString(),
+                Text = c.Name,
+                Selected = prodTypeList.Product.ProductVType.ProductTypeId == c.ProductTypeId
+            });
+
+            return View(prodTypeList);
         }
 
         // POST: Products/Edit/5
@@ -96,7 +121,14 @@ namespace NumiNumsApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                db.Entry(product).State = EntityState.Modified;
+
+                db.ProductTypes.Attach(product.ProductVType);
+                var prodTypeInDb = db.Products.Include(i => i.ProductVType).SingleOrDefault(i => i.ProductId == product.ProductId);
+                if (prodTypeInDb != null)
+                {
+                    db.Entry(prodTypeInDb).CurrentValues.SetValues(product);
+                    prodTypeInDb.ProductVType = product.ProductVType;
+                }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }

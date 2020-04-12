@@ -13,19 +13,19 @@ namespace NumiNumsApp.Controllers
         private ApplicationDbContext storeDB = new ApplicationDbContext();
         public ActionResult Index()
         {
+            var products = storeDB.Products.ToList();
             var cart = ShoppingCart.GetCart(this.HttpContext);
 
-            // Set up our ViewModel
             var viewModel = new ShoppingCartViewModel
             {
                 CartItems = cart.GetCartItems(),
-                CartTotal = cart.GetTotal()
+                CartTotal = cart.GetTotal(),
             };
-            viewModel.Products = storeDB.Products.ToList();
+            viewModel.Products = products;
+
             return View(viewModel);
         }
         
-        // GET: /Store/AddToCart/5
         public ActionResult AddToCart(int id)
         {
             // Retrieve the album from the database
@@ -40,8 +40,7 @@ namespace NumiNumsApp.Controllers
             // Go back to the main store page for more shopping
             return RedirectToAction("Index");
         }
-        //
-        // AJAX: /ShoppingCart/RemoveFromCart/5
+        
         [HttpPost]
         public ActionResult RemoveFromCart(int id)
         {
@@ -65,8 +64,7 @@ namespace NumiNumsApp.Controllers
             };
             return Json(results);
         }
-        //
-        // GET: /ShoppingCart/CartSummary
+        
         [ChildActionOnly]
         public ActionResult CartSummary()
         {

@@ -11,6 +11,5 @@ namespace NumiNumsApp.Models
         [Key]
         public int ProductTypeId { get; set; }
         public string Name { get; set; }
-        public double TypePrice { get; set; }
     }
 }

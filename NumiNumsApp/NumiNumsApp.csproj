@@ -183,6 +183,18 @@
     <Compile Include="Migrations\202004051456033_Intial Db Model Create.Designer.cs">
       <DependentUpon>202004051456033_Intial Db Model Create.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202004101228355_addProductType.cs" />
+    <Compile Include="Migrations\202004101228355_addProductType.Designer.cs">
+      <DependentUpon>202004101228355_addProductType.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004101237341_addProductType-removeTypePrice.cs" />
+    <Compile Include="Migrations\202004101237341_addProductType-removeTypePrice.Designer.cs">
+      <DependentUpon>202004101237341_addProductType-removeTypePrice.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202004112010436_ShoppingCartVM-ProdTypeFK.cs" />
+    <Compile Include="Migrations\202004112010436_ShoppingCartVM-ProdTypeFK.Designer.cs">
+      <DependentUpon>202004112010436_ShoppingCartVM-ProdTypeFK.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Cart.cs" />
@@ -281,6 +293,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202004051456033_Intial Db Model Create.resx">
       <DependentUpon>202004051456033_Intial Db Model Create.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004101228355_addProductType.resx">
+      <DependentUpon>202004101228355_addProductType.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004101237341_addProductType-removeTypePrice.resx">
+      <DependentUpon>202004101237341_addProductType-removeTypePrice.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202004112010436_ShoppingCartVM-ProdTypeFK.resx">
+      <DependentUpon>202004112010436_ShoppingCartVM-ProdTypeFK.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

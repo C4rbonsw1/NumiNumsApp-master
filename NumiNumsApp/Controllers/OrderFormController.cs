@@ -23,7 +23,7 @@ namespace NumiNumsApp.Controllers
             var orderFormViewModel = new OrderFormViewModel
             {
                 CartItems = cart.GetCartItems(),
-                CartTotal = cart.GetTotal()
+                CartTotal = cart.GetTotal(),
             };
             return View(orderFormViewModel);
         }
@@ -41,10 +41,7 @@ namespace NumiNumsApp.Controllers
             cart.CreateOrder(order);
 
             var orderDetails = storeDB.OrderDetails.Include(p => p.Product).Where(od => od.OrderId == order.OrderId).ToList();
-            foreach (var orderDt in orderDetails) 
-            {
-                order.OrderDetails.Add(orderDt);
-            }
+            order.OrderDetails = orderDetails;
 
             var body = "<p>Order From: {0} ({1})</p><p>Order:</p><p>{2}</p>";
 
@@ -58,18 +55,18 @@ namespace NumiNumsApp.Controllers
                 var row = dt.NewRow();
 
                 row["Name"] = item.Product.Name;
-                row["Price"] = Convert.ToString(item.Product.Price);
-                row["Quantity"] = item.Quantity;
+                row["Quantity"] = item.Quantity.ToString();
+                //row["Price"] = Convert.ToString(item.Product.Price);
 
-                dt.Rows.Add(row);
+                dt.Rows.Add(row); 
             }
 
             foreach (DataRow dr in dt.Rows) 
             {
                 body += "<tr>";
                 body += "<td>" + dr[0] + "</td>";
-                body += "<td>" + String.Format("{0:c}", dr[1])
-                   + "</td>";
+                body += "<td>" + dr[1] + "</td>";
+                //body += "<td>" + String.Format("{0:c}", dr[2]) + "</td>";
                 body += "</tr>";
             }
             body += "</table>";
@@ -95,7 +92,6 @@ namespace NumiNumsApp.Controllers
             await smtp.SendMailAsync(message);
 
             return RedirectToAction("Complete", new { id = order.OrderId });
-            //return RedirectToAction("SendEmail", new { message, order});
         }
 
 
