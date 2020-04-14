@@ -15,11 +15,14 @@ namespace NumiNumsApp.Controllers
     public class ProductsController : Controller
     {
         private ApplicationDbContext db = new ApplicationDbContext();
-
+        
         // GET: Products
         public ActionResult Index()
         {
-
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("~/Home/Index");
+            }
             var product = db.Products.ToList();
             product = db.Products.Include(x => x.ProductVType).ToList();
             return View(product);
@@ -28,6 +31,10 @@ namespace NumiNumsApp.Controllers
         // GET: Products/Details/5
         public ActionResult Details(int? id)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("~/Home/Index");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -43,6 +50,10 @@ namespace NumiNumsApp.Controllers
         // GET: Products/Create
         public ActionResult Create()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("~/Home/Index");
+            }
             ProductVM prodTypeList = new ProductVM();
 
             prodTypeList.ListProductType = db.ProductTypes.Select(c => new SelectListItem
@@ -90,6 +101,10 @@ namespace NumiNumsApp.Controllers
         // GET: Products/Edit/5
         public ActionResult Edit(int? id)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("~/Home/Index");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
@@ -117,27 +132,32 @@ namespace NumiNumsApp.Controllers
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ProductId,Name,Description,Price,ImagePath")] Product product)
+        public ActionResult Edit([Bind(Include = "Product, File, ProductType, ListProductType")] ProductVM productVM)
         {
             if (ModelState.IsValid)
             {
-
-                db.ProductTypes.Attach(product.ProductVType);
-                var prodTypeInDb = db.Products.Include(i => i.ProductVType).SingleOrDefault(i => i.ProductId == product.ProductId);
-                if (prodTypeInDb != null)
+                productVM.Product.ProductVType = productVM.ProductType;
+                //db.ProductTypes.Attach(productVM.ProductType);
+                var prodInDb = db.Products.Include(i => i.ProductVType).SingleOrDefault(i => i.ProductId == productVM.Product.ProductId);
+                productVM.Product.ProductVType.ProductTypeId = productVM.ProductType.ProductTypeId;
+                if (prodInDb != null)
                 {
-                    db.Entry(prodTypeInDb).CurrentValues.SetValues(product);
-                    prodTypeInDb.ProductVType = product.ProductVType;
+                    db.Entry(prodInDb).CurrentValues.SetValues(productVM.Product);
+                    prodInDb.ProductVType = productVM.ProductType;
                 }
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-            return View(product);
+            return View(productVM);
         }
 
         // GET: Products/Delete/5
         public ActionResult Delete(int? id)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("~/Home/Index");
+            }
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);

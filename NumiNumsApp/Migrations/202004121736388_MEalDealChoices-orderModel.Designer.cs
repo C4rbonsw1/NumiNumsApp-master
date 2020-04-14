@@ -7,13 +7,13 @@ namespace NumiNumsApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class addProductType : IMigrationMetadata
+    public sealed partial class MEalDealChoicesorderModel : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addProductType));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(MEalDealChoicesorderModel));
         
         string IMigrationMetadata.Id
         {
-            get { return "202004101228355_addProductType"; }
+            get { return "202004121736388_MEalDealChoices-orderModel"; }
         }
         
         string IMigrationMetadata.Source

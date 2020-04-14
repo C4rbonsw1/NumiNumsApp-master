@@ -3,23 +3,27 @@
 @{
     ViewBag.Title = "Home Page";
 }
-
-<div class="jumbotron" style="text-align:center">
-    <h1>Welcome to NumiNums Deliveries</h1>
+<div class="row" style="margin-top: 1vh;">
+        <a href="~/Home/Index">
+            <img src="~/Content/Images/site-logo.png" class="img-home">
+        </a>
 </div>
 
-
-<div class="row">
-    <div class="col-md-8">
+<div class="row-bg-home">
+    <div class="" style="text-align: center">
+        <h2>Delivery Menu This Week</h2>
+    </div>
+    <hr />
+    <div id="update-message" style="margin-left:84%; color:lightcoral">
+        <p style="color:green">@TempData["Message"]</p>
+    </div>
+    <div class="col-md-12">
         <table class="table-home" style="text-align:center">
             @foreach (var item in Model.Products)
             {
                 if (item.ProductVType.Name == "Main")
                 {
                     <tr>
-                        @*<td style="width:6vw">
-                        <img src="@Url.Content(item.ImagePath)" alt="Image" class="img-thumb" />
-                    </td>*@
                         <td class="col-md-10">
                             <h3>
                                 @Html.DisplayFor(modelItem => item.Name)
@@ -29,8 +33,9 @@
                             @Html.DisplayFor(modelItem => item.Description)
                         </td>
 
-                        <td class="btn btn-default button-align" style="margin-top:5vh">
-                            @Html.ActionLink("Add To Cart", "AddToCart", new { id = item.ProductId })
+                        <td style="        margin-top: 5vh
+">
+                            @Html.ActionLink("Add To Cart", "AddToCart", new { id = item.ProductId }, new { @class = "btn btn-default button-align" })
                         </td>
                     </tr>
                 }
@@ -44,8 +49,8 @@
                 {
                     <tr>
                         @*<td style="width:6vw">
-                        <img src="@Url.Content(item.ImagePath)" alt="Image" class="img-thumb" />
-                    </td>*@
+                                <img src="@Url.Content(item.ImagePath)" alt="Image" class="img-thumb" />
+                            </td>*@
                         <td class="col-md-10">
                             <h3>
                                 @Html.DisplayFor(modelItem => item.Name)
@@ -54,8 +59,8 @@
                             </h3>
                             @Html.DisplayFor(modelItem => item.Description)
                         </td>
-                        <td class="btn btn-default button-align" style="margin-top:2vh">
-                            @Html.ActionLink("Add To Cart", "AddToCart", new { id = item.ProductId })
+                        <td style="margin-top:2vh">
+                            @Html.ActionLink("Add To Cart", "AddToCart", new { id = item.ProductId }, new { @class = "btn btn-default button-align" })
                         </td>
                     </tr>
 
@@ -71,14 +76,14 @@
                 {
                     <tr>
                         @*<td style="width:6vw">
-                        <img src="@Url.Content(item.ImagePath)" alt="Image" class="img-thumb" />
-                    </td>*@
+                                <img src="@Url.Content(item.ImagePath)" alt="Image" class="img-thumb" />
+                            </td>*@
                         <td class="col-md-10">
                             @Html.DisplayFor(modelItem => item.Name)
                         </td>
 
-                        <td class="btn btn-default button-align" style="margin-top:0vh">
-                            @Html.ActionLink("Add To Cart", "AddToCart", new { id = item.ProductId })
+                        <td>
+                            @Html.ActionLink("Add To Cart", "AddToCart", new { id = item.ProductId }, new { @class = "btn btn-default button-align-drinks" })
                         </td>
                     </tr>
                 }
@@ -98,88 +103,88 @@
                             </h3>
                             @Html.DisplayFor(modelItem => item.Description)
                         </td>
-                        <td class="btn btn-default button-align" style="margin-top:2vh">
-                            @Html.ActionLink("Add To Cart", "AddToCart", new { id = item.ProductId })
+                        <td style="margin-top:2vh">
+                            @Html.ActionLink("Add To Cart", "AddToCart", new { id = item.ProductId }, new { @class = "btn btn-default button-align" })
                         </td>
                     </tr>
                 }
             }
         </table>
-    </div>
-    <div class="col-md-4">
-        <div class="col-md-12">
-            <h1>Your order</h1>
-        </div>
-        <div id="update-message">
-        </div>
-        <table class="table-home">
-            <tr>
-                <th>
-                    Item
-                </th>
-                <th>
-                    Quantity
-                </th>
-                <th>
-
-                </th>
-            </tr>
-       @foreach (var item in Model.CartItems)
-       {
-        <tr id="row-@item.RecordId">
-            <td class="col-md-8">
-                @item.ProductName
-            </td>
-            <td id="item-count-@item.RecordId">
-                @item.Count
-            </td>
-            <td class="btn btn-default">
-                <a href="#" class="RemoveLink"
-                   data-id="@item.RecordId">
-                    Remove
-                    from cart
-                </a>
-            </td>
-        </tr>
-        }
-            <tr>
-                <td>
-                    Total
-                </td>
-                <td id="cart-total">
-                    @Model.CartTotal
-                </td>
-            </tr>
-        </table>
-        <p class="btn btn-default ">
-            @Html.ActionLink("Checkout>> ", "OrderForm", "OrderForm")
-        </p>
-        <script src="/Scripts/jquery-1.4.4.min.js"
-                type="text/javascript"></script>
-        <script type="text/javascript">
-            $(function () {
-                // Document.ready -> link up remove event handler
-                $(".RemoveLink").click(function () {
-                    // Get the id from the link
-                    var recordToDelete = $(this).attr("data-id");
-                    if (recordToDelete != '') {
-                        // Perform the ajax post
-                        $.post("/Home/RemoveFromCart", { "id": recordToDelete },
-                            function (data) {
-                                // Successful requests get here
-                                // Update the page elements
-                                if (data.ItemCount == 0) {
-                                    $('#row-' + data.DeleteId).fadeOut('slow');
-                                } else {
-                                    $('#item-count-' + data.DeleteId).text(data.ItemCount);
-                                }
-                                $('#cart-total').text(data.CartTotal);
-                                $('#update-message').text(data.Message);
-                                $('#cart-status').text('Cart (' + data.CartCount + ')');
-                            });
-                    }
-                });
-            });
-        </script>
+        <hr />
     </div>
 </div>
+
+<div class="col-md-12">
+    <h1>Your order</h1>
+</div>
+<div id="update-message">
+</div>
+<div class="col-md-8">
+    <table class="table-home">
+        <tr>
+            <th>
+                Items
+            </th>
+            <th>
+                Quantity
+            </th>
+        </tr>
+        @foreach (var item in Model.CartItems)
+        {
+            <tr id="row-@item.RecordId">
+                <td class="col-md-8">
+                    @item.ProductName
+                </td>
+                <td id="item-count-@item.RecordId">
+                    @item.Count
+                </td>
+                <td style="margin-top:2vh">
+                    <a href="#" class="RemoveLink btn btn-default"
+                       data-id="@item.RecordId">
+                        Remove
+                        from cart
+                    </a>
+                </td>
+            </tr>
+        }
+        <tr>
+            <th>
+                Total
+            </th>
+            <th id="cart-total">
+                @Model.CartTotal
+            </th>
+        </tr>
+    </table>
+    <p class="btn btn-default">
+        @Html.ActionLink("Checkout>> ", "OrderForm", "OrderForm")
+    </p>
+</div>
+
+<script src="/Scripts/jquery-1.4.4.min.js"
+        type="text/javascript"></script>
+<script type="text/javascript">
+    $(function () {
+        // Document.ready -> link up remove event handler
+        $(".RemoveLink").click(function () {
+            // Get the id from the link
+            var recordToDelete = $(this).attr("data-id");
+            if (recordToDelete != '') {
+                // Perform the ajax post
+                $.post("/Home/RemoveFromCart", { "id": recordToDelete },
+                    function (data) {
+                        // Successful requests get here
+                        // Update the page elements
+                        if (data.ItemCount == 0) {
+                            $('#row-' + data.DeleteId).fadeOut('slow');
+                        } else {
+                            $('#item-count-' + data.DeleteId).text(data.ItemCount);
+                        }
+                        $('#cart-total').text(data.CartTotal);
+                        $('#update-message').text(data.Message);
+                        $('#cart-status').text('Cart (' + data.CartCount + ')');
+                    });
+            }
+        });
+    });
+</script>

@@ -3,16 +3,16 @@ namespace NumiNumsApp.Migrations
     using System;
     using System.Data.Entity.Migrations;
     
-    public partial class addProductTyperemoveTypePrice : DbMigration
+    public partial class MEalDealChoices : DbMigration
     {
         public override void Up()
         {
-            DropColumn("dbo.ProductTypes", "TypePrice");
+            AddColumn("dbo.OrderDetails", "MealDealChoices", c => c.String());
         }
         
         public override void Down()
         {
-            AddColumn("dbo.ProductTypes", "TypePrice", c => c.Double(nullable: false));
+            DropColumn("dbo.OrderDetails", "MealDealChoices");
         }
     }
 }

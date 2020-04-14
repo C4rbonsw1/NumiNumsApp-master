@@ -7,6 +7,7 @@
 .body-content {
     padding-left: 15px;
     padding-right: 15px;
+    background-color: honeydew;
 }
 
 /* Override the default bootstrap behavior where horizontal description lists 
@@ -26,6 +27,10 @@ textarea {
 .img-thumb {
     height: 5vh;
 }
+.img-home {
+    height: 10vh;
+    margin-left: 44%
+}
 
 .table-home {
     width: 100%;
@@ -40,3 +45,69 @@ textarea {
     display: block;
     margin-top: 5vh;
 }
+
+.button-align-drinks {
+    display: block;
+    margin-top: 0vh;
+}
+
+.successfully-saved.hide-opacity {
+    opacity: 0;
+}
+
+.fade-out {
+    animation: fadeOut ease 8s;
+    -webkit-animation: fadeOut ease 8s;
+    -moz-animation: fadeOut ease 8s;
+    -o-animation: fadeOut ease 8s;
+    -ms-animation: fadeOut ease 8s;
+}
+
+@keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@-moz-keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@-webkit-keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@-o-keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+@-ms-keyframes fadeOut {
+    0% {
+        opacity: 1;
+    }
+
+    100% {
+        opacity: 0;
+    }

@@ -8,6 +8,7 @@ namespace NumiNumsApp.ViewModels
         public List<Cart> CartItems { get; set; }
         public decimal CartTotal { get; set; }
         public Order Order { get; set; }
+        public OrderDetail OrderDetail { get; set; }
 
     }
 }

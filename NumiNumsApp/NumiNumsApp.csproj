@@ -175,25 +175,21 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004051439263_InitialCreate.cs" />
-    <Compile Include="Migrations\202004051439263_InitialCreate.Designer.cs">
-      <DependentUpon>202004051439263_InitialCreate.cs</DependentUpon>
+    <Compile Include="Migrations\202004121639555_MEalDealChoices.cs" />
+    <Compile Include="Migrations\202004121639555_MEalDealChoices.Designer.cs">
+      <DependentUpon>202004121639555_MEalDealChoices.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004051456033_Intial Db Model Create.cs" />
-    <Compile Include="Migrations\202004051456033_Intial Db Model Create.Designer.cs">
-      <DependentUpon>202004051456033_Intial Db Model Create.cs</DependentUpon>
+    <Compile Include="Migrations\202004121736388_MEalDealChoices-orderModel.cs" />
+    <Compile Include="Migrations\202004121736388_MEalDealChoices-orderModel.Designer.cs">
+      <DependentUpon>202004121736388_MEalDealChoices-orderModel.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004101228355_addProductType.cs" />
-    <Compile Include="Migrations\202004101228355_addProductType.Designer.cs">
-      <DependentUpon>202004101228355_addProductType.cs</DependentUpon>
+    <Compile Include="Migrations\202004122047098_unknown-model-change.cs" />
+    <Compile Include="Migrations\202004122047098_unknown-model-change.Designer.cs">
+      <DependentUpon>202004122047098_unknown-model-change.cs</DependentUpon>
     </Compile>
-    <Compile Include="Migrations\202004101237341_addProductType-removeTypePrice.cs" />
-    <Compile Include="Migrations\202004101237341_addProductType-removeTypePrice.Designer.cs">
-      <DependentUpon>202004101237341_addProductType-removeTypePrice.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\202004112010436_ShoppingCartVM-ProdTypeFK.cs" />
-    <Compile Include="Migrations\202004112010436_ShoppingCartVM-ProdTypeFK.Designer.cs">
-      <DependentUpon>202004112010436_ShoppingCartVM-ProdTypeFK.cs</DependentUpon>
+    <Compile Include="Migrations\202004141705351_activeProductStatusAdd.cs" />
+    <Compile Include="Migrations\202004141705351_activeProductStatusAdd.Designer.cs">
+      <DependentUpon>202004141705351_activeProductStatusAdd.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
@@ -218,6 +214,10 @@
     <Content Include="Content\bootstrap-theme.min.css" />
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\avatar.png" />
+    <Content Include="Content\Images\gradient-white-green-linear.svg" />
+    <Content Include="Content\Images\home-bg.jpg" />
+    <Content Include="Content\Images\site-logo.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
@@ -272,7 +272,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Images\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -288,20 +287,17 @@
     <Content Include="Scripts\jquery-3.4.1.min.map" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\202004051439263_InitialCreate.resx">
-      <DependentUpon>202004051439263_InitialCreate.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202004121639555_MEalDealChoices.resx">
+      <DependentUpon>202004121639555_MEalDealChoices.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004051456033_Intial Db Model Create.resx">
-      <DependentUpon>202004051456033_Intial Db Model Create.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202004121736388_MEalDealChoices-orderModel.resx">
+      <DependentUpon>202004121736388_MEalDealChoices-orderModel.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004101228355_addProductType.resx">
-      <DependentUpon>202004101228355_addProductType.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202004122047098_unknown-model-change.resx">
+      <DependentUpon>202004122047098_unknown-model-change.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004101237341_addProductType-removeTypePrice.resx">
-      <DependentUpon>202004101237341_addProductType-removeTypePrice.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\202004112010436_ShoppingCartVM-ProdTypeFK.resx">
-      <DependentUpon>202004112010436_ShoppingCartVM-ProdTypeFK.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\202004141705351_activeProductStatusAdd.resx">
+      <DependentUpon>202004141705351_activeProductStatusAdd.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

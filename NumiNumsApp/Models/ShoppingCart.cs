@@ -131,7 +131,9 @@ namespace NumiNumsApp.Models
                     ProductId = item.ProductId,
                     OrderId = order.OrderId,
                     UnitPrice = item.UnitPrice,
-                    Quantity = item.Count
+                    Quantity = item.Count,
+                    MealDealChoices = order.MealDealChoices
+                    
                 };
                 // Set the order total of the shopping cart
                 orderTotal += (item.Count * item.UnitPrice);

@@ -195,6 +195,10 @@ namespace NumiNumsApp.Controllers
         [AllowAnonymous]
         public ActionResult ResetPassword(string code)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("~/Home/Index");
+            }
             return code == null ? View("Error") : View();
         }
 

@@ -7,13 +7,13 @@ namespace NumiNumsApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class IntialDbModelCreate : IMigrationMetadata
+    public sealed partial class MEalDealChoices : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(IntialDbModelCreate));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(MEalDealChoices));
         
         string IMigrationMetadata.Id
         {
-            get { return "202004051456033_Intial Db Model Create"; }
+            get { return "202004121639555_MEalDealChoices"; }
         }
         
         string IMigrationMetadata.Source

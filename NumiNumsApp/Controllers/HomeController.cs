@@ -13,7 +13,7 @@ namespace NumiNumsApp.Controllers
         private ApplicationDbContext storeDB = new ApplicationDbContext();
         public ActionResult Index()
         {
-            var products = storeDB.Products.ToList();
+            var products = storeDB.Products.Where(x => x.Status == true).ToList();
             var cart = ShoppingCart.GetCart(this.HttpContext);
 
             var viewModel = new ShoppingCartViewModel
@@ -37,6 +37,8 @@ namespace NumiNumsApp.Controllers
 
             cart.AddToCart(addedAlbum);
 
+            TempData["Message"] = "Item added to your order!";
+
             // Go back to the main store page for more shopping
             return RedirectToAction("Index");
         }
@@ -56,7 +58,7 @@ namespace NumiNumsApp.Controllers
             // Display the confirmation message
             var results = new ShoppingCartRemoveViewModel
             {
-                Message = "Item has been removed from your shopping cart.",
+                Message = "Item has been removed.",
                 CartTotal = cart.GetTotal(),
                 CartCount = cart.GetCount(),
                 ItemCount = itemCount,

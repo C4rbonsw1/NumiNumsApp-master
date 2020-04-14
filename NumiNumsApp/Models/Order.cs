@@ -44,6 +44,10 @@ namespace NumiNumsApp.Models
         [DataType(DataType.EmailAddress)]
         public string Email { get; set; }
 
+        //[Required(ErrorMessage = "Choice are required")]
+        [DisplayName("Meal Deal Choices")]
+        [StringLength(1000)]
+        public string MealDealChoices { get; set; }
         public decimal Total { get; set; }
 
         public System.DateTime OrderDate { get; set; }

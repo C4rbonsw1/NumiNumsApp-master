@@ -29,9 +29,10 @@ namespace NumiNumsApp.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult> OrderForm([Bind(Include = "OrderId,CartId,FirstName,LastName,Address,City,PostalCode,Phone,Email,Total,OrderDate,OrderDetails")]Order order)
+        public async Task<ActionResult> OrderForm([Bind(Include = "OrderId,CartId,FirstName,LastName,Address,City,PostalCode,Phone,Email,MealDealChoices,Total,OrderDate,OrderDetails")]Order order)
         {
             order.OrderDate = DateTime.Now;
+
             //Save Order
             storeDB.Orders.Add(order);
             storeDB.SaveChanges();
@@ -43,36 +44,43 @@ namespace NumiNumsApp.Controllers
             var orderDetails = storeDB.OrderDetails.Include(p => p.Product).Where(od => od.OrderId == order.OrderId).ToList();
             order.OrderDetails = orderDetails;
 
-            var body = "<p>Order From: {0} ({1})</p><p>Order:</p><p>{2}</p>";
+
+            var body = "<h3>Details</h3><p>Name: {0} {1}</p><p>Email: {2}</p>";
 
             DataTable dt = new DataTable();
 
             dt.Columns.Add("Name");
-            dt.Columns.Add("Price");
             dt.Columns.Add("Quantity");
+            dt.Columns.Add("MealDealChoices");
             foreach (var item in order.OrderDetails)
             {
                 var row = dt.NewRow();
 
                 row["Name"] = item.Product.Name;
                 row["Quantity"] = item.Quantity.ToString();
+                row["MealDealChoices"] = item.MealDealChoices;
                 //row["Price"] = Convert.ToString(item.Product.Price);
 
                 dt.Rows.Add(row); 
             }
 
+            body += "<h3>Items</h3>";
             foreach (DataRow dr in dt.Rows) 
             {
                 body += "<tr>";
                 body += "<td>" + dr[0] + "</td>";
-                body += "<td>" + dr[1] + "</td>";
+                body += "<td>" + dr[1].ToString() + "</td>";
                 //body += "<td>" + String.Format("{0:c}", dr[2]) + "</td>";
                 body += "</tr>";
             }
-            body += "</table>";
+            body += "</table>" + "<br />" + "<h3>Meal Deal Choices</h3>";
+
+            if (order.MealDealChoices != null)
+            {
+                body += "<P>" + order.MealDealChoices +"</p>";
+            }
 
             var sender = new MailAddress("danielgeorgeswan@gmail.com");
-
             var message = new MailMessage
             {
                 Sender = sender

@@ -7,13 +7,13 @@ namespace NumiNumsApp.Migrations
     using System.Resources;
     
     [GeneratedCode("EntityFramework.Migrations", "6.2.0-61023")]
-    public sealed partial class addProductTyperemoveTypePrice : IMigrationMetadata
+    public sealed partial class activeProductStatusAdd : IMigrationMetadata
     {
-        private readonly ResourceManager Resources = new ResourceManager(typeof(addProductTyperemoveTypePrice));
+        private readonly ResourceManager Resources = new ResourceManager(typeof(activeProductStatusAdd));
         
         string IMigrationMetadata.Id
         {
-            get { return "202004101237341_addProductType-removeTypePrice"; }
+            get { return "202004141705351_activeProductStatusAdd"; }
         }
         
         string IMigrationMetadata.Source

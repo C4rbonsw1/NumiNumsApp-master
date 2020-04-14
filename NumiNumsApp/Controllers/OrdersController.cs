@@ -17,13 +17,21 @@ namespace NumiNumsApp.Controllers
         // GET: Orders
         public ActionResult Index()
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("~/Home/Index");
+            }
             return View(db.Orders.ToList());
         }
 
         // GET: Orders/Details/5
         public ActionResult Details(int? id)
         {
-            if (id == null)
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("~/Home/Index");
+            }
+            else if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -64,7 +72,11 @@ namespace NumiNumsApp.Controllers
         // GET: Orders/Edit/5
         public ActionResult Edit(int? id)
         {
-            if (id == null)
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("~/Home/Index");
+            }
+            else if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -95,7 +107,11 @@ namespace NumiNumsApp.Controllers
         // GET: Orders/Delete/5
         public ActionResult Delete(int? id)
         {
-            if (id == null)
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("~/Home/Index");
+            }
+            else if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
@@ -112,6 +128,10 @@ namespace NumiNumsApp.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
+            if (!User.Identity.IsAuthenticated)
+            {
+                return Redirect("~/Home/Index");
+            }
             Order order = db.Orders.Find(id);
             db.Orders.Remove(order);
             db.SaveChanges();
